@@ -1,0 +1,7 @@
+pod "SMReactiveLocationManager", :path => "../SMReactiveLocationManager.podspec"
+
+target "Demo" do
+end
+
+target "DemoTests" do
+end
