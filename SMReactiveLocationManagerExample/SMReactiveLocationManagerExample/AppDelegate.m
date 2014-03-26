@@ -7,14 +7,35 @@
 //
 
 #import "AppDelegate.h"
-
+#import <CLLocationManager+RACAdditions.h>
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+   [[[CLLocationManager sharedManager] rac_getCurrentLocation] subscribeNext:^(id x) {
+       NSLog(@"%@",x);
+   }];
+    
+   /* [[[CLLocationManager sharedManager] rac_monitorSignificantLocationUpdates] subscribeNext:^(CLLocation* x) {
+        NSLog(@"SIGNIFICANT! %@",x);
+    }];
+
+    */
+   
+    
+    
+    
+    
+    [[[[CLLocationManager sharedManager] rac_monitorEnterRegion] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
+    }];
+
+    CLRegion *region;
+    [[CLLocationManager sharedManager] startMonitoringForRegion:region];
+    
     return YES;
 }
+
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
